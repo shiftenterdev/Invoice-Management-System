@@ -17,6 +17,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::prefix('admin')->name('admin.')->group(function () {
+//    Route::get('profile',\App\Http\Livewire\Profile::class);
     Route::resource('profile', \App\Http\Controllers\Admin\ProfileController::class);
 });
 Route::prefix('admin')->name('admin.')->group(function () {
