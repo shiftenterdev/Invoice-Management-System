@@ -5,12 +5,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Invoice-EANG</title>
+    <title>Invoice Management</title>
 
     <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/cover/">
 
     <!-- Bootstrap core CSS -->
-    <link href="https://getbootstrap.com/docs/4.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
     <!-- Custom styles for this template -->
     <link href="https://getbootstrap.com/docs/4.0/examples/cover/cover.css" rel="stylesheet">
@@ -27,10 +27,10 @@
 </style>
 <body class="text-center">
 
-<div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+<div class="container d-flex h-100 p-3 mx-auto flex-column">
     <header class="masthead mb-auto">
         <div class="inner">
-            <h3 class="masthead-brand">Invoice-EANG</h3>
+            <h3 class="masthead-brand">Invoice</h3>
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link active" href="/">Home</a>
                 <a class="nav-link" href="{{route('admin.clients.index')}}">Clients</a>
@@ -41,7 +41,7 @@
     </header>
 
     <main role="main" class="inner cover">
-        <h1 class="cover-heading">Invoice-EANG</h1>
+        <h1 class="cover-heading">Invoice</h1>
         <p class="lead">Create your business profile and start making downloadable invoices! You can also create/manage clients, invoices, payments, and balances.</p>
         <p class="lead">
             <?php if(!App\Profile::where('id', '=', 1)->exists()) echo

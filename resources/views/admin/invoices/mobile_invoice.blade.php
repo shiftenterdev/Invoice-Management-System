@@ -137,7 +137,7 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img src="{{url('/images')}}/{{ $profile->business_logo }}" style="width:100%; max-width:300px;">
+                                <img src="{{url('/images')}}/{{ $profile->business_logo }}" style="width:150px; max-width:300px;">
                             </td>
 
                             <td style="text-align: right">

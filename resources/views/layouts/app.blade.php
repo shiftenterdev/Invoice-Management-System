@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Invoice management') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-collapse-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -37,12 +37,12 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <!-- Authentication Links -->
-                        <li><a href="{{ route('admin.profile.edit', 1) }}">My Company Profile</a></li>
-                        <li><a href="{{ route('admin.clients.index') }}">Clients</a></li>
-                        <li><a href="{{ route('admin.invoices.index') }}">Invoices</a></li>
-                        <li><a href="{{ route('admin.payments.index') }}">Payments</a></li>
+                        <li class="nav-link"><a class="nav-item text-white" href="{{ route('admin.profile.edit', 1) }}">My Company Profile</a></li>
+                        <li class="nav-link"><a class="nav-item text-white" href="{{ route('admin.clients.index') }}">Clients</a></li>
+                        <li class="nav-link"><a class="nav-item text-white" href="{{ route('admin.invoices.index') }}">Invoices</a></li>
+                        <li class="nav-link"><a class="nav-item text-white" href="{{ route('admin.payments.index') }}">Payments</a></li>
                     </ul>
                 </div>
             </div>

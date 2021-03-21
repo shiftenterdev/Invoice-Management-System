@@ -27,8 +27,10 @@
                             Zip Code:
                             <input type="text" value="{{$profile->business_address_zipcode}}" name="business_address_zipcode" class="form-control"/>
 
-                            <img src="{{url('/images/')}}/{{ $profile->business_logo }}" style="width:100%; max-width:300px;"/>
-                            <input type="file" id="business_logo" name = "business_logo">
+                            <div class="form-group">
+                                <img src="{{url('/images/')}}/{{ $profile->business_logo }}" style="width:200px; max-width:300px;margin: 10px 0" class="rounded float-start img-thumbnail"/>
+                                <input type="file" id="business_logo" name = "business_logo" class="form-control">
+                            </div>
                         </div>
                     </div>
                 </div>
