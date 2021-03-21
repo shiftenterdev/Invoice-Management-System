@@ -207,8 +207,8 @@
             <td></td>
             <td>Subtotal<br>
                 <?php if ($invoice->client->tax_rate > 0 ) echo "Sales Tax (". number_format($invoice->client->tax_rate, 2) . "%)<br>"; ?>
-                <?php if ($invoice->discount > 0 && $invoice->discount_type  == 'Amount') echo 'Discount<br>'; ?>
-                <?php if ($invoice->discount > 0 && $invoice->discount_type  == 'Percent') echo "Discount ($invoice->discount%)<br>"; ?>
+                <?php if ($invoice->discount > 0 && $invoice->discount_type === 'Amount') echo 'Discount<br>'; ?>
+                <?php if ($invoice->discount > 0 && $invoice->discount_type === 'Percent') echo "Discount ($invoice->discount%)<br>"; ?>
                 Paid to Date<br>
                 <strong>Balance</strong><br>
                 <?php if ($invoice->deposit_amount > 0 && $invoice->payments->sum('payment_amount') < $invoice->deposit_amount) echo"<strong>Partial Due</strong>";?>
@@ -216,8 +216,8 @@
             <td style="text-align: right">
                 ${{number_format($invoice->products->sum('line_total'),2)}}<br>
                 <?php if ($invoice->client->tax_rate >0) echo "$" . number_format($invoice->products->sum('line_total')  * ((100+$invoice->client->tax_rate) / 100)-$invoice->products->sum('line_total'), 2) . "<br>";?>
-                <?php if ($invoice->discount > 0 && $invoice->discount_type  == 'Amount') echo "($" . number_format($invoice->discount, 2).")<br>"; ?>
-                <?php if ($invoice->discount > 0 && $invoice->discount_type  == 'Percent') echo "($".number_format($invoice->products->sum('line_total') * (($invoice->discount) / 100), 2).")<br>"; ?>
+                <?php if ($invoice->discount > 0 && $invoice->discount_type === 'Amount') echo "($" . number_format($invoice->discount, 2) . ")<br>"; ?>
+                <?php if ($invoice->discount > 0 && $invoice->discount_type === 'Percent') echo "($" . number_format($invoice->products->sum('line_total') * (($invoice->discount) / 100), 2) . ")<br>"; ?>
                 (${{number_format($invoice->payments->sum('payment_amount'), 2)}})<br>
                 ${{number_format($invoice->balance, 2)}}<br>
                 <?php if ($invoice->deposit_amount > 0 && $invoice->payments->sum('payment_amount') < $invoice->deposit_amount) echo "$". number_format($invoice->deposit_amount, 2);?>
