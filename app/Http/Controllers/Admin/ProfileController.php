@@ -1,33 +1,51 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\App;
-Use Image;
 
+use App\Http\Controllers\Controller;
 use App\Profile;
 use Illuminate\Http\Request;
-
+use LaravelDaily\Invoices\Invoice;
+use LaravelDaily\Invoices\Classes\Buyer;
+use LaravelDaily\Invoices\Classes\InvoiceItem;
+use Image;
 
 class ProfileController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     *
-     *
      */
-
     public function index()
     {
         //
     }
+
     public function previewInvoice()
     {
         //
         $profile = Profile::findorFail(1);
         return view('admin.profile.preview_invoice', compact('profile'));
+    }
+
+    public function pdfInvoice()
+    {
+        $customer = new Buyer([
+                                  'name'          => 'John Doe',
+                                  'custom_fields' => [
+                                      'email' => 'test@example.com',
+                                  ],
+                              ]);
+        $item = (new InvoiceItem())->title('Service 1')->pricePerUnit(2);
+        $invoice = Invoice::make()
+                          ->buyer($customer)
+                          ->discountByPercent(10)
+                          ->taxRate(15)
+                          ->shipping(1.99)
+                          ->addItem($item);
+        return $invoice->stream();
     }
 
     /**
@@ -44,13 +62,13 @@ class ProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         //
-        $profile = new Profile;
+        $profile = new Profile();
         $profile->business_name = $request->business_name;
         $profile->business_address_street = $request->business_address_street;
         $profile->business_address_street2 = $request->business_address_street2;
@@ -64,16 +82,13 @@ class ProfileController extends Controller
         $profile->footer_notes_left = $request->footer_notes_left;
         $profile->footer_notes_right = $request->footer_notes_right;
         $profile->business_website = $request->business_website;
-        if($request->hasFile('business_logo')) {
-
-            $image       = $request->file('business_logo');
-            $filename    = $image->getClientOriginalName();
-
+        if ($request->hasFile('business_logo')) {
+            $image = $request->file('business_logo');
+            $filename = $image->getClientOriginalName();
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->save('images/'. $filename);
+            $image_resize->save('images/' . $filename);
             $profile->business_logo = $filename;
-        }
-        else {
+        } else {
             $profile->business_logo = 'noimage.jpg';
         }
         $profile->save();
@@ -83,7 +98,7 @@ class ProfileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -94,7 +109,7 @@ class ProfileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit(Profile $profile)
@@ -106,8 +121,8 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Profile $profile)
@@ -126,13 +141,11 @@ class ProfileController extends Controller
         $profile->footer_notes_left = $request->footer_notes_left;
         $profile->footer_notes_right = $request->footer_notes_right;
         $profile->business_website = $request->business_website;
-        if($request->hasFile('business_logo')) {
-
-            $image       = $request->file('business_logo');
-            $filename    = $image->getClientOriginalName();
-
+        if ($request->hasFile('business_logo')) {
+            $image = $request->file('business_logo');
+            $filename = $image->getClientOriginalName();
             $image_resize = Image::make($image->getRealPath());
-            $image_resize->save('images/'. $filename);
+            $image_resize->save('images/' . $filename);
             $profile->business_logo = $filename;
         }
         $profile->save();
@@ -142,11 +155,12 @@ class ProfileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         //
     }
+
 }

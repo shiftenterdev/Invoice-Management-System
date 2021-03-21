@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,30 +10,29 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('admin')->name('admin.')->group(function (){
-    Route::resource('profile', 'Admin\ProfileController');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('profile', \App\Http\Controllers\Admin\ProfileController::class);
 });
-Route::prefix('admin')->name('admin.')->group(function (){
-    Route::resource('clients', 'Admin\ClientController');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('clients', \App\Http\Controllers\Admin\ClientController::class);
 });
-Route::prefix('admin')->name('admin.')->group(function (){
-    Route::resource('payments', 'Admin\PaymentController');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('payments', \App\Http\Controllers\Admin\PaymentController::class);
 });
-Route::prefix('admin')->name('admin.')->group(function (){
-    Route::resource('invoices', 'Admin\InvoiceController');
-    Route::get('invoices/{id}/generate-pdf','Admin\InvoiceController@generatePDF')->name('invoices.generate-pdf');
-
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('invoices', \App\Http\Controllers\Admin\InvoiceController::class);
+    Route::get('invoices/{id}/generate-pdf', [\App\Http\Controllers\Admin\InvoiceController::class,'generatePDF'])->name('invoices.generate-pdf');
 });
-Route::prefix('admin')->name('admin.')->group(function (){
-    Route::resource('products', 'Admin\ProductController');
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
 });
-
-
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/admin/invoice/preview', 'Admin\ProfileController@previewInvoice');
-Route::get('/admin/invoice/mobile/preview/{id}', 'Admin\InvoiceController@mobilePreview');
+Route::get('/home', [\App\Http\Controllers\HomeController::class,'index'])->name('home');
+Route::get('/admin/invoice/preview', [\App\Http\Controllers\Admin\ProfileController::class,'previewInvoice']);
+Route::get('/admin/invoice/mobile/preview/{id}',[ \App\Http\Controllers\Admin\InvoiceController::class,'mobilePreview']);
